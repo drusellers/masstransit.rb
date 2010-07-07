@@ -5,7 +5,7 @@ module MassTransit
     end
   
     def LoopbackEndpointFactory.supports(scheme)
-      return 'loopback'.eql?(scheme)
+      return 'loopback'.casecmp(scheme) == 0
     end
   end
 end

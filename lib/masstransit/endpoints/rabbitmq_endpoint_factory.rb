@@ -5,7 +5,7 @@ module MassTransit
     end
 
     def RabbitMQEndpointFactory.supports(scheme)
-      return 'rabbitmq'.eql?(scheme)
+      return 'rabbitmq'.casecmp(scheme) == 0
     end
   end
 end
