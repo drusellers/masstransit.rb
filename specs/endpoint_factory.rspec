@@ -1,7 +1,9 @@
 require 'spec'
+require 'uri'
 require "lib/masstransit"
 
 describe "The endpoint factory" do
+
   it "should have two supported endpoint factories" do
     MassTransit::EndpointFactory.factories.should have(2).things
   end
@@ -21,7 +23,15 @@ describe "The endpoint factory" do
   it "should ignore the case of the scheme" do
     MassTransit::EndpointFactory.supports('RabbitMQ').should be true
   end
+
+  it "should return an endpoint when given a loopback URI" do
+    uri = URI.parse("loopback://endpoint")
+    MassTransit::EndpointFactory.getEndpoint(uri).should_not be nil
+  end
+  
+  it "should return a nil when given a donkey URI" do
+    uri = URI.parse("donkey://endpoint")
+    MassTransit::EndpointFactory.getEndpoint(uri).should be nil
+  end
   
 end
-
-

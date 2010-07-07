@@ -11,7 +11,7 @@ module MassTransit
         if factory.supports(scheme)
           return true;
         end
-        }
+      }
       return false
     end
   
@@ -29,12 +29,22 @@ module MassTransit
         require "#{dirname}/#{fn}"
       }
     end
+
+    def getEndpoint ( uri )
+      return nil;
+    end
+
+    def EndpointFactory.getEndpoint( uri )
+      @@factories.each { |factory|
+        if factory.supports( uri.scheme )
+	  return factory.new.getEndpoint( uri );
+	end
+      }
+      return nil;
+    end
   end    
   
   here = File.expand_path(File.dirname(__FILE__))
   
   EndpointFactory.load(here + "/endpoints")
 end
-
-
-
