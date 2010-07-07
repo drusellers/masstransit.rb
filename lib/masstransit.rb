@@ -8,5 +8,3 @@ $LOAD_PATH << "#{here}/masstransit"
 require 'bus'
 require 'subscription'
 require 'endpoint_factory'
-
-MassTransit::EndpointFactory.load(here + '/masstransit/endpoints')

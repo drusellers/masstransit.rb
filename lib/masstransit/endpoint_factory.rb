@@ -30,6 +30,10 @@ module MassTransit
       }
     end
   end    
+  
+  here = File.expand_path(File.dirname(__FILE__))
+  
+  EndpointFactory.load(here + "/endpoints")
 end
 
 
