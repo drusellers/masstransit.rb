@@ -1,17 +1,17 @@
 require 'spec'
-require "specs/EndpointFactory.rb"
+require File.dirname(__FILE__) + '/../lib/masstransit'
 
 describe "Passed an endpoint URI" do
   it "should have two supported endpoint factories" do
-    EndpointFactory.factories.should have(2).things
+    MassTransit::EndpointFactory.factories.should have(2).things
   end
 
   it "should handle loopback addresses" do
-    EndpointFactory.factories.should include :loopback
+    MassTransit::EndpointFactory.factories.should include :loopback
   end
 
   it "should handle rabbitmq addresses" do
-    EndpointFactory.factories.should include :loopback
+    MassTransit::EndpointFactory.factories.should include :loopback
   end
   
 end
