@@ -30,8 +30,6 @@ module MassTransit
       }
     end
   end    
-  
-  EndpointFactory.load('lib/masstransit/endpoints')
 end
 
 

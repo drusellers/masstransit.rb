@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/../lib/masstransit'
 require 'spec'
+require "lib/masstransit"
 
 describe MassTransit::Subscription, "#address" do
 	it "returns the address" do

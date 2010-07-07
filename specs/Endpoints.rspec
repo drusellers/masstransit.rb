@@ -1,5 +1,5 @@
 require 'spec'
-require "lib/masstransit/endpoint_factory.rb"
+require "lib/masstransit"
 
 describe "Passed an endpoint URI" do
   it "should have two supported endpoint factories" do

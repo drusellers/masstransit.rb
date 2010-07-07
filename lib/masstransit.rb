@@ -1,2 +1,12 @@
-require File.dirname(__FILE__) + '/masstransit/bus.rb'
-require File.dirname(__FILE__) + '/masstransit/subscription'
+require 'rubygems'
+require 'json' unless defined?(JSON)
+
+here = File.expand_path(File.dirname(__FILE__))
+
+$LOAD_PATH << "#{here}/masstransit"
+
+require 'bus'
+require 'subscription'
+require 'endpoint_factory'
+
+MassTransit::EndpointFactory.load(here + '/masstransit/endpoints')
