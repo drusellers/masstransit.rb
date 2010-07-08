@@ -1,0 +1,20 @@
+require 'spec'
+require 'uri'
+require "lib/masstransit"
+
+describe "The endpoint" do
+
+  before(:each) do
+    @uri = URI.parse('loopback://something/')
+    @endpoint = MassTransit::EndpointFactory.getEndpoint(@uri)
+  end
+
+  it "should accept a message when send is called" do
+    @endpoint.send "this is a message"
+  end
+
+  it "should have the endpoint URI in :uri" do
+    @endpoint.url.to_s.should eql @uri.to_s
+  end
+
+end

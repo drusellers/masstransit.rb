@@ -7,5 +7,5 @@ $LOAD_PATH << "#{here}/masstransit"
 
 require 'bus'
 require 'subscription'
-require 'endpoint_factory'
 require 'endpoint'
+require 'endpoint_factory'

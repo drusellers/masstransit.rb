@@ -5,42 +5,46 @@ module MassTransit
     def get_type()
       return ""
     end
+
+    def self.get_type()
+      return ""
+    end
   
-    def EndpointFactory.supports(scheme)
+    def self.supports(scheme)
       @@factories.each { |factory|
         if factory.supports(scheme)
-          return true;
+          return true
         end
       }
       return false
     end
   
-    def EndpointFactory.inherited(ef)
+    def self.inherited(ef)
       @@factories.push(ef)
     end
   
-    def EndpointFactory.factories
+    def self.factories
       return @@factories
     end
     
-    def EndpointFactory.load( dirname )
+    def self.load( dirname )
       Dir.open( dirname ).each { |fn|
         next unless ( fn =~ /[.]rb$/ )
         require "#{dirname}/#{fn}"
       }
     end
 
-    def getEndpoint ( uri )
-      return nil;
-    end
+    def self.getEndpoint( uri )
+      unless get_type() == ""
+        return nil
+      end
 
-    def EndpointFactory.getEndpoint( uri )
       @@factories.each { |factory|
         if factory.supports( uri.scheme )
-	  return factory.new.getEndpoint( uri );
-	end
+	  			return factory.getEndpoint uri 
+				end
       }
-      return nil;
+      return nil
     end
   end    
   
