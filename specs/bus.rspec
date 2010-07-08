@@ -1,14 +1,13 @@
 require 'spec'
 require 'lib/masstransit'
 
-describe MassTransit::Bus, "#bus?" do
+describe MassTransit::Bus do
 	it "sould subscribe to class type names" do
 		bus = MassTransit::Bus.new
 		bus.subscribe 'SampleMessage.class'
 	end
 	
-	it "should have an address" do
-	  bus = MassTransit::Bus.new 
-	  bus.address.should == 'something'
-  end
+	it "should have an endpoint to listen on"
+	it "should be able to publish messages"
+	it "should be able to receive messages"
 end
