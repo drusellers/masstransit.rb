@@ -1,7 +1,7 @@
 module MassTransit
 	class Bus
-	  def subscribe(klass)
-	    subscription = Subscription.new 'addr' klass
+	  def subscribe(message_name)
+	    
     end
 	end
 end
