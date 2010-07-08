@@ -2,8 +2,13 @@ require 'spec'
 require 'lib/masstransit'
 
 describe MassTransit::Bus, "#bus?" do
-	it "can subscribe to class messages" do
+	it "sould subscribe to class type names" do
 		bus = MassTransit::Bus.new
 		bus.subscribe 'SampleMessage.class'
 	end
+	
+	it "should have an address" do
+	  bus = MassTransit::Bus.new 
+	  bus.address.should == 'something'
+  end
 end
