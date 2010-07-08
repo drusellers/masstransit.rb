@@ -2,12 +2,17 @@ require 'spec'
 require 'lib/masstransit'
 
 describe MassTransit::Bus do
+  before(:each) do
+    @bus = MassTransit::Bus.new
+  end
+
 	it "sould subscribe to class type names" do
-		bus = MassTransit::Bus.new
-		bus.subscribe 'SampleMessage.class'
+		@bus.subscribe 'SampleMessage.class'
 	end
 	
 	it "should have an endpoint to listen on"
 	it "should be able to publish messages"
 	it "should be able to receive messages"
+  it "should be able to remove an existing subscription"
+  it "removing a non existant subscription should not error"
 end
