@@ -5,6 +5,7 @@ here = File.expand_path(File.dirname(__FILE__))
 
 $LOAD_PATH << "#{here}/masstransit"
 
-require 'subscription'
 require 'bus'
+require 'subscription'
+require 'endpoint'
 require 'endpoint_factory'

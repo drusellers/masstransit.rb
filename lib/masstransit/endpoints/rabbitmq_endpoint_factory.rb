@@ -1,10 +1,10 @@
 module MassTransit
   class RabbitMQEndpointFactory < EndpointFactory
-    def get_type()
+    def self.get_type()
       return "RabbitMQ"
     end
 
-    def RabbitMQEndpointFactory.supports(scheme)
+    def self.supports(scheme)
       return 'rabbitmq'.casecmp(scheme) == 0
     end
   end

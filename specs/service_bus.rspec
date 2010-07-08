@@ -1,0 +1,14 @@
+require 'spec'
+require "lib/masstransit"
+
+describe "The service bus" do
+
+  it "should be able register a new subscriptions"
+
+  it "should be able to remove a existing subscription"
+
+  it "should return the related Endpoint"
+
+  it "should allow the publication of a message"
+
+end
