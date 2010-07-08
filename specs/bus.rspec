@@ -1,0 +1,9 @@
+require 'spec'
+require 'lib/masstransit'
+
+describe MassTransit::Bus, "#bus?" do
+	it "can subscribe to class messages" do
+		bus = MassTransit::Bus.new
+		bus.subscribe 'SampleMessage.class'
+	end
+end
