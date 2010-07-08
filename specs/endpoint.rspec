@@ -18,3 +18,11 @@ describe "The endpoint" do
   end
 
 end
+
+describe "Endpoint.send()" do
+
+  it "should place the message on the queue in question"
+
+  it "should not place the message on the queue if the message is nil"
+
+end

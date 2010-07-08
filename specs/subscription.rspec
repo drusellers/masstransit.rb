@@ -1,9 +1,13 @@
 require 'spec'
 require "lib/masstransit"
 
-describe MassTransit::Subscription, "#address" do
-	it "returns the address" do
+describe "New subscription" do
+
+	it "should return the address provided" do
 		subscription = MassTransit::Subscription.new "address", "message"
 		subscription.address.should == "address"
 	end
+
+  it "should allow for removal of the subscriptions"
+
 end
