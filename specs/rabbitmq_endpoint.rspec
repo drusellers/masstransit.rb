@@ -17,9 +17,10 @@ describe "RabbitMqEndpoint.send" do
 
     @endpoint.send "blah"
 
-    q.message_count.should be > 1
+    # need to wait a moment for this to actually happen, good thing .pop blocks
+    #q.message_count.should be > 1
 
-    msg = q.pop(:ack => true)
+    msg = q.pop(:ack => false)
     msg.to_s.should eql "blah"
 
     Carrot.stop
