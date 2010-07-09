@@ -7,5 +7,10 @@ module MassTransit
     def self.supports(scheme)
       return 'rabbitmq'.casecmp(scheme) == 0
     end
+
+    def self.getEndpoint(uri)
+      puts "RabbitMqEndpoint.getFactory called."
+      return RabbitMqEndpoint.new uri
+    end
   end
 end

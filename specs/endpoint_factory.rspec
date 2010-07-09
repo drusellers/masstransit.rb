@@ -28,14 +28,22 @@ end
 
 describe "The endpoint factory's getEndpoint()" do
 
-  it "should return an endpoint when given a supported URI" do
+  it "should return an endpoint when given a supported loopback URI" do
     uri = URI.parse("loopback://endpoint")
     MassTransit::EndpointFactory.getEndpoint(uri).should_not be nil
+  end
+
+  it "should return an endpoint when given a supported RabbitMQ URI" do
+    uri = URI.parse("rabbitmq://localhost/test")
+    ep = MassTransit::EndpointFactory.getEndpoint(uri)
+    ep.should_not be_nil
+    (ep.kind_of? MassTransit::RabbitMqEndpoint).should be true
   end
 
   it "should return an instance of Endpoint when given a supported URI" do
     uri = URI.parse("loopback://endpoint")
     ep = MassTransit::EndpointFactory.getEndpoint(uri)
+    ep.should_not be_nil
     (ep.kind_of? MassTransit::Endpoint).should be true
   end
   

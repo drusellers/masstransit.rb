@@ -1,0 +1,28 @@
+require 'spec'
+require 'uri'
+require 'MQ'
+require "lib/masstransit"
+
+describe "RabbitMqEndpoint.send" do
+
+  before(:each) do
+    @uri = URI.parse('rabbitmq://localhost/rme.spec')
+    @endpoint = MassTransit::EndpointFactory.getEndpoint(@uri)
+    @endpoint.should_not be_nil
+  end
+
+  it "should place the message on the queue" do
+    EM.run do
+      q = MQ.queue(@uri.path)
+      q.pop { |msg|
+        msg.to_s.should eql "blah"
+        EM.stop_event_loop
+      }
+    end
+
+    @endpoint.send "blah"
+  end
+
+  it "should not place the message on the queue if the message is nil"
+
+end
