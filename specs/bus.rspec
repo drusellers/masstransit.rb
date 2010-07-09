@@ -8,16 +8,26 @@ describe MassTransit::Bus do
 
 	it "sould subscribe to class type names" do
   		sub = @bus.subscribe 'SampleMessage.class' do |msg|
-  		  @test = true
+  		  @test1 = true
 		  end
 		  sub.action.call('hiu')
-		  @test.should == true
+		  @test1.should == true
 	end
 	
-
 	it "should have an endpoint to listen on" do
 	  @bus.addr.should == 'test'
   end
+  
+  it "should be able to store subscriptions" do
+    @bus.subscribe 'SampleMessage.class' do |msg|
+		  @test1 = true
+	  end
+	  @bus.subscribe 'SampleMessage.class' do |msg|
+		  @test1 = true
+	  end
+    @bus.subscription_count.should == 2
+  end
+  
 	it "should be able to publish messages"
 	it "should be able to receive messages"
   it "should be able to remove an existing subscription"

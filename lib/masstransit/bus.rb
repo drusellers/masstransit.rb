@@ -4,11 +4,17 @@ module MassTransit
 
     def initialize (address)
       @addr = address
+      @subscriptions = []
     end
 
 	  def subscribe(message_name, &action_to_take)
 	   subscription = Subscription.new message_name, action_to_take
+	   @subscriptions << subscription
 	   return subscription
+    end
+    
+    def subscription_count()
+      return @subscriptions.length
     end
     
 	end
