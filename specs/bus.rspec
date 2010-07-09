@@ -3,14 +3,21 @@ require 'lib/masstransit'
 
 describe MassTransit::Bus do
   before(:each) do
-    @bus = MassTransit::Bus.new
+    @bus = MassTransit::Bus.new 'test'
   end
 
 	it "sould subscribe to class type names" do
-		@bus.subscribe 'SampleMessage.class'
+  		sub = @bus.subscribe 'SampleMessage.class' do |msg|
+  		  @test = true
+		  end
+		  sub.action.call('hiu')
+		  @test.should == true
 	end
 	
-	it "should have an endpoint to listen on"
+
+	it "should have an endpoint to listen on" do
+	  @bus.addr.should == 'test'
+  end
 	it "should be able to publish messages"
 	it "should be able to receive messages"
   it "should be able to remove an existing subscription"

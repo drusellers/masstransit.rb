@@ -2,12 +2,14 @@ module MassTransit
 	class Bus
     attr_reader :addr
 
-    def initalize address
+    def initialize (address)
       @addr = address
     end
 
-	  def subscribe(message_name)
-      return Subscription.new @addr, message_name
+	  def subscribe(message_name, &action_to_take)
+	   subscription = Subscription.new message_name, action_to_take
+	   return subscription
     end
+    
 	end
 end
