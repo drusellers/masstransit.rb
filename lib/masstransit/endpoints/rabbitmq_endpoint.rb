@@ -1,4 +1,4 @@
-require 'MQ'
+require 'carrot'
 
 module MassTransit
   class RabbitMqEndpoint < Endpoint
@@ -8,12 +8,10 @@ module MassTransit
     end
 
     def send (msg)
-      EM.run {
-        q = MQ.direct(@url.path)
-        q.publish(msg)
+      q = Carrot.queue(@url.path)
+      q.publish(msg)
 
-        EM.stop_event_loop
-      }
+      Carrot.stop
     end
 
   end

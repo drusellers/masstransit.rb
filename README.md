@@ -19,4 +19,4 @@ Windows
 
 Everyone
 --------
-3. Install bindings `sudo gem sources -a http://gems.github.com && sudo gem install tmm1-amqp`
+3. Install bindings `sudo gem sources -a http://gems.github.com && sudo gem install carrot`

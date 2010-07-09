@@ -1,6 +1,6 @@
 require 'spec'
 require 'uri'
-require 'MQ'
+require 'carrot'
 require "lib/masstransit"
 
 describe "RabbitMqEndpoint.send" do
@@ -12,15 +12,18 @@ describe "RabbitMqEndpoint.send" do
   end
 
   it "should place the message on the queue" do
-    EM.run do
-      q = MQ.queue(@uri.path)
-      q.pop { |msg|
-        msg.to_s.should eql "blah"
-        EM.stop_event_loop
-      }
-    end
+
+    q = Carrot.queue(@uri.path)
 
     @endpoint.send "blah"
+
+    q.message_count.should be > 1
+
+    msg = q.pop(:ack => true)
+    msg.to_s.should eql "blah"
+
+    Carrot.stop
+
   end
 
   it "should not place the message on the queue if the message is nil"
