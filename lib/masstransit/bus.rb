@@ -28,7 +28,10 @@ module MassTransit
         c = s.action.call msg
         c.call msg unless c == nil
       end
-      
+    end
+    
+    def publish(msg)
+      @addr.send msg
     end
     
 	end

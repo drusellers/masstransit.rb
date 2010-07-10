@@ -13,12 +13,12 @@ end
 
 describe MassTransit::Bus do
   before(:each) do
-    @bus = MassTransit::Bus.new 'test'
+    @bus = MassTransit::Bus.new MassTransit::Endpoint.new 
     @msg = SampleMessage.new 'dru'
   end
 	
 	it "should have an endpoint to listen on" do
-	  @bus.addr.should == 'test'
+	  @bus.addr.should_not == nil
   end
   
 	it "should be able to deliver messages" do
@@ -47,5 +47,10 @@ describe MassTransit::Bus do
     @bus.deliver BogusMessage.new
     
     @dontHit.should == nil
+  end
+  
+  it "should be able to publish to endpoint" do
+    @bus.publish @msg
+    #how to assert?
   end
 end
