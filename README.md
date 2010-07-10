@@ -1,7 +1,7 @@
 MassTransit.rb
 ==============
 
-Ruby port of MassTransit ESB(Enterprise Service Bus). 
+Ruby port of MassTransit <abbr title="Enterprise Service Bus">ESB</abbr>.
 
 Installation
 ------------
@@ -14,7 +14,7 @@ On Mac OS X
 
 Windows
 -------
-1. ...
+1. ... [install ruby]
 2. Install rabbitmq
 
 Everyone

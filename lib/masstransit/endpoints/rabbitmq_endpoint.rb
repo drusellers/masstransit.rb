@@ -3,15 +3,14 @@ require 'carrot'
 module MassTransit
   class RabbitMqEndpoint < Endpoint
 
+    attr_reader :queue
+
     def initialize uri
-      @url = uri
+      @queue = Carrot.queue(uri.path)
     end
 
-    def send (msg)
-      q = Carrot.queue(@url.path)
-      q.publish(msg)
-
-      Carrot.stop
+    def send msg
+      @queue.publish(msg)
     end
 
   end

@@ -9,24 +9,31 @@ describe "RabbitMqEndpoint.send" do
     @uri = URI.parse('rabbitmq://localhost/rme.spec')
     @endpoint = MassTransit::EndpointFactory.getEndpoint(@uri)
     @endpoint.should_not be_nil
+    @endpoint.queue.purge
+    @endpoint.queue.message_count.should be 0
+  end
+
+  after(:each) do
+    Carrot.stop
   end
 
   it "should place the message on the queue" do
 
-    q = Carrot.queue(@uri.path)
-
     @endpoint.send "blah"
 
-    # need to wait a moment for this to actually happen, good thing .pop blocks
-    #q.message_count.should be > 1
+    @endpoint.queue.message_count.should be >= 1
 
-    msg = q.pop(:ack => false)
+    msg = @endpoint.queue.pop(:ack => false)
     msg.to_s.should eql "blah"
-
-    Carrot.stop
 
   end
 
-  it "should not place the message on the queue if the message is nil"
+  it "should not place the message on the queue if the message is nil" do
+
+    @endpoint.send nil
+
+    @endpoint.queue.message_count.should be 0
+
+  end
 
 end

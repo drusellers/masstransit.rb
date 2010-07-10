@@ -3,11 +3,15 @@ require "lib/masstransit"
 
 describe "New subscription" do
 
-	it "should return the address provided" do
-		subscription = MassTransit::Subscription.new "address", "message"
-		subscription.address.should == "address"
-	end
+  before(:each) do
+    @messageType = "mt"
+  end
 
-  it "should allow for removal of the subscriptions"
+	it "should return the message type provided" do
+		subscription = MassTransit::Subscription.new @messageType, lambda { |msg| 
+      puts msg 
+    }
+		subscription.message_name.to_s.should be @messageType
+	end
 
 end
