@@ -13,13 +13,11 @@ module MassTransit
 	   return subscription
     end
     
-    def subscription_count()
-      return @subscriptions.length
-    end
-    
     def deliver(msg)
       @subscriptions.each do |s|
-        s.action.call(msg)
+        if s.message_name == msg.class
+          s.action.call(msg)
+        end
       end
       
     end

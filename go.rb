@@ -1,6 +1,7 @@
-require 'lib/masstransit'
+class Bob
+end
+class Bill
+end
 
-s = MassTransit::Subscription.new "addr", "msg"
-
-puts s.address
-puts s.message_name
+b = Bob.new
+puts b.class == Bob
