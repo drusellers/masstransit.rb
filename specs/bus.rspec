@@ -1,13 +1,21 @@
 require 'spec'
 require 'lib/masstransit'
 
+class SampleMessage
+  def initialize(args)
+    @name = args
+  end
+  
+  attr_accessor :name
+end
+
 describe MassTransit::Bus do
   before(:each) do
     @bus = MassTransit::Bus.new 'test'
   end
-
+  
 	it "sould subscribe to class type names" do
-  		sub = @bus.subscribe 'SampleMessage.class' do |msg|
+  		sub = @bus.subscribe SampleMessage.class do |msg|
   		  @test1 = true
 		  end
 		  sub.action.call('hiu')
@@ -19,17 +27,28 @@ describe MassTransit::Bus do
   end
   
   it "should be able to store subscriptions" do
-    @bus.subscribe 'SampleMessage.class' do |msg|
+    @bus.subscribe SampleMessage.class do |msg|
 		  @test1 = true
 	  end
-	  @bus.subscribe 'SampleMessage.class' do |msg|
+	  @bus.subscribe SampleMessage.class do |msg|
 		  @test1 = true
 	  end
     @bus.subscription_count.should == 2
   end
   
 	it "should be able to publish messages"
-	it "should be able to receive messages"
+	
+	it "should be able to deliver messages messages" do
+	  @bus.subscribe SampleMessage.class do |msg|
+	    @test = msg.name
+    end
+    
+    @msg = SampleMessage.new 'dru'
+    @bus.deliver @msg
+    
+    @test.should == 'dru'
+  end
+  
   it "should be able to remove an existing subscription"
   it "removing a non existant subscription should not error"
 end

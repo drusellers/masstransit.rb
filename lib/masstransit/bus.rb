@@ -17,5 +17,12 @@ module MassTransit
       return @subscriptions.length
     end
     
+    def deliver(msg)
+      @subscriptions.each do |s|
+        s.action.call(msg)
+      end
+      
+    end
+    
 	end
 end
