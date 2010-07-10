@@ -1,7 +1,34 @@
-class Bob
-end
-class Bill
+module Sample
+  class SampleClass
+  end
 end
 
-b = Bob.new
-puts b.class == Bob
+def subscribe(handler)
+  @handle = handler
+end
+
+def subscribe(type, handler)
+  @handle = lambda{|msg|
+    if type == msg.class
+      return handler
+    end
+  }
+end
+
+def deliver(msg)
+  i = @handle.call(msg)
+  i.call(msg) unless i == nil
+end
+
+subscribe Sample::SampleClass, lambda{|m|
+  puts m
+}
+
+deliver Sample::SampleClass.new
+
+
+
+
+
+name = Sample::SampleClass.name
+#puts name.gsub '::', '.'
