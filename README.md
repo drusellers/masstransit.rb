@@ -19,9 +19,7 @@ On Mac OS X
 3. Start the service `launchctl start com.rabbitmq`
 
 Example com.rabbitmq.plist
-<pre><code>
-
-&lt;?xml version="1.0" encoding="UTF-8"?>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
         "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 &lt;plist version="1.0">
@@ -41,9 +39,7 @@ Example com.rabbitmq.plist
           &lt;string>/usr/local/sbin:/usr/bin:/bin:/usr/local/bin&lt;/string>
         &lt;/dict>
 &lt;/dict>
-&lt;/plist>
-
-</code></pre>
+&lt;/plist></code></pre>
 
 Windows
 -------

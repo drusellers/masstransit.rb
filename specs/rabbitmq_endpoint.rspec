@@ -18,22 +18,18 @@ describe "RabbitMqEndpoint.send" do
   end
 
   it "should place the message on the queue" do
-
     @endpoint.send "blah"
 
     @endpoint.queue.message_count.should be >= 1
 
     msg = @endpoint.queue.pop(:ack => false)
     msg.to_s.should eql "blah"
-
   end
 
   it "should not place the message on the queue if the message is nil" do
-
     @endpoint.send nil
 
     @endpoint.queue.message_count.should be 0
-
   end
 
 end

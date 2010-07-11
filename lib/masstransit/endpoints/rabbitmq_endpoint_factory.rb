@@ -1,5 +1,6 @@
 module MassTransit
   class RabbitMQEndpointFactory < EndpointFactory
+
     def self.get_type()
       return "RabbitMQ"
     end
@@ -9,8 +10,8 @@ module MassTransit
     end
 
     def self.getEndpoint(uri)
-      puts "RabbitMqEndpoint.getFactory called."
       return RabbitMqEndpoint.new uri
     end
+
   end
 end

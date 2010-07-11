@@ -28,28 +28,30 @@ end
 
 describe "The endpoint factory's getEndpoint()" do
 
+  before(:all) do
+    @loopbackUri = URI.parse("loopback://localhost/endpoint")
+    @rabbitmqUri = URI.parse("rabbitmq://localhost/endpoint")
+    @donkeyUri = URI.parse("donkey://localhost/endpoint")
+  end
+
   it "should return an endpoint when given a supported loopback URI" do
-    uri = URI.parse("loopback://endpoint")
-    MassTransit::EndpointFactory.getEndpoint(uri).should_not be nil
+    MassTransit::EndpointFactory.getEndpoint(@loopbackUri).should_not be nil
   end
 
   it "should return an endpoint when given a supported RabbitMQ URI" do
-    uri = URI.parse("rabbitmq://localhost/test")
-    ep = MassTransit::EndpointFactory.getEndpoint(uri)
+    ep = MassTransit::EndpointFactory.getEndpoint(@rabbitmqUri)
     ep.should_not be_nil
     (ep.kind_of? MassTransit::RabbitMqEndpoint).should be true
   end
 
   it "should return an instance of Endpoint when given a supported URI" do
-    uri = URI.parse("loopback://endpoint")
-    ep = MassTransit::EndpointFactory.getEndpoint(uri)
+    ep = MassTransit::EndpointFactory.getEndpoint(@loopbackUri)
     ep.should_not be_nil
     (ep.kind_of? MassTransit::Endpoint).should be true
   end
   
   it "should return a nil when given an unsupported URI" do
-    uri = URI.parse("donkey://endpoint")
-    MassTransit::EndpointFactory.getEndpoint(uri).should be nil
+    MassTransit::EndpointFactory.getEndpoint(@donkeyUri).should be nil
   end
   
 end
