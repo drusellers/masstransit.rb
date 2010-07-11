@@ -8,17 +8,28 @@ class SampleMessage
   
   attr_accessor :name
 end
-class BogusMessage
+
+class BogusMessage; end
+
+class MassTransit::Endpoint
+  attr_reader :msgs
+
+  # override send behavior for test
+  def send msg
+    @msgs = [] if @msgs == nil
+    @msgs.push msg
+  end
 end
 
 describe MassTransit::Bus do
   before(:each) do
-    @bus = MassTransit::Bus.new MassTransit::Endpoint.new 
+    @endpoint = MassTransit::Endpoint.new
+    @bus = MassTransit::Bus.new @endpoint
     @msg = SampleMessage.new 'dru'
   end
 	
 	it "should have an endpoint to listen on" do
-	  @bus.addr.should_not == nil
+	  @bus.addr.should_not be_nil
   end
   
 	it "should be able to deliver messages" do
@@ -31,14 +42,17 @@ describe MassTransit::Bus do
     @test.should == 'dru'
   end
   
-  it "should be able to set random criteria for delivery" do
+  it "should be able to set random criteria for delivery"
+=begin
+# we aren't asserting anything here
+     do
     @bus.subscribe lambda{|msg|
       if msg == 1
         return lambda{|m| @nested = true}
       end
     }
   end
-  
+=end  
   it "should be selective about delivering messages" do
     @bus.subscribe_type SampleMessage, lambda{ |msg|
       @dontHit = true
@@ -46,11 +60,11 @@ describe MassTransit::Bus do
     
     @bus.deliver BogusMessage.new
     
-    @dontHit.should == nil
+    @dontHit.should be_nil
   end
   
   it "should be able to publish to endpoint" do
     @bus.publish @msg
-    #how to assert?
+    @endpoint.msgs.count.should be 1
   end
 end
