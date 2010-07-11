@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>specs/bus.rspec</string>
+	<string>lib/masstransit/consumer.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>go.rb</string>
 			<key>lastUsed</key>
-			<date>2010-07-08T10:53:57Z</date>
+			<date>2010-07-11T15:03:00Z</date>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -26,7 +26,7 @@
 			<key>filename</key>
 			<string>rakefile</string>
 			<key>lastUsed</key>
-			<date>2010-07-08T11:36:59Z</date>
+			<date>2010-07-09T22:51:38Z</date>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -43,21 +43,105 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>lib/masstransit.rb</key>
+		<key>go.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>22</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>1</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>rakefile</key>
+		<key>lib/masstransit/bus.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>7</integer>
+		</dict>
+		<key>lib/masstransit/consumer.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>44</integer>
+				<key>line</key>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>lib/masstransit/endpoint_factory.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>lib/masstransit/endpoints/loopback_endpoint.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>lib/masstransit/endpoints/loopback_endpoint_factory.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>lib/masstransit/endpoints/rabbitmq_endpoint.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>lib/masstransit/endpoints/rabbitmq_endpoint_factory.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -76,14 +160,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>9</integer>
+				<integer>25</integer>
 				<key>line</key>
-				<integer>1</integer>
+				<integer>52</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>35</integer>
 		</dict>
 		<key>specs/endpoint_factory.rspec</key>
 		<dict>
@@ -99,32 +183,22 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>specs/subscription.rspec</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>3</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>lib/masstransit.rb</string>
-		<string>rakefile</string>
 		<string>specs/bus.rspec</string>
-		<string>specs/endpoint_factory.rspec</string>
-		<string>specs/subscription.rspec</string>
+		<string>lib/masstransit/bus.rb</string>
+		<string>lib/masstransit/consumer.rb</string>
+		<string>lib/masstransit/endpoints/loopback_endpoint.rb</string>
+		<string>lib/masstransit/endpoints/loopback_endpoint_factory.rb</string>
+		<string>lib/masstransit/endpoints/rabbitmq_endpoint.rb</string>
+		<string>lib/masstransit/endpoints/rabbitmq_endpoint_factory.rb</string>
+		<string>go.rb</string>
+		<string>lib/masstransit/endpoint_factory.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{351, 33}, {960, 588}}</string>
+	<string>{{315, 182}, {960, 588}}</string>
 </dict>
 </plist>
