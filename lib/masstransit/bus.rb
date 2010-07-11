@@ -8,25 +8,24 @@ module MassTransit
     end
 
 	  def subscribe_type(message_name, action_to_take)
-	   subscription = Subscription.new lambda{|msg|
+	   consumer = Consumer.new lambda{|msg|
 	     if(msg.class == message_name)
 	       return action_to_take
        end
 	    }
-	   @consumers << subscription
-	   return subscription
+	   @consumers << consumer
+	   return consumer
     end
     
     def subscribe(action)
-      subscription = Subscription.new action
-      @consumers << subscription
-      return subscription
+      consumer = Consumer.new action
+      @consumers << consumer
+      return consumer
     end
     
     def deliver(msg)
-      @consumers.each do |s|
-        c = s.action.call msg
-        c.call msg unless c == nil
+      @consumers.each do |c|
+        c.consume msg
       end
     end
     

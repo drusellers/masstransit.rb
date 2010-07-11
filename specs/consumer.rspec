@@ -8,7 +8,7 @@ describe "New subscription" do
   end
 
 	it "should return the message type provided" do
-		subscription = MassTransit::Subscription.new lambda { |msg| 
+		subscription = MassTransit::Consumer.new lambda { |msg| 
       puts msg 
     }
 	end
