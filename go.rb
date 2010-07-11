@@ -1,3 +1,5 @@
+require 'json'
+
 module Sample
   class SampleClass
   end
@@ -21,7 +23,7 @@ def deliver(msg)
 end
 
 subscribe Sample::SampleClass, lambda{|m|
-  puts m
+  #do stuff
 }
 
 deliver Sample::SampleClass.new

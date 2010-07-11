@@ -8,10 +8,9 @@ describe "New subscription" do
   end
 
 	it "should return the message type provided" do
-		subscription = MassTransit::Subscription.new @messageType, lambda { |msg| 
+		subscription = MassTransit::Subscription.new lambda { |msg| 
       puts msg 
     }
-		subscription.message_name.to_s.should be @messageType
 	end
 
 end

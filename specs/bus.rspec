@@ -42,17 +42,17 @@ describe MassTransit::Bus do
     @test.should == 'dru'
   end
   
-  it "should be able to set random criteria for delivery"
-=begin
-# we aren't asserting anything here
-     do
+  it "should be able to set random criteria for delivery" do
     @bus.subscribe lambda{|msg|
       if msg == 1
         return lambda{|m| @nested = true}
       end
     }
+    
+    @bus.deliver 2
+    @nested.should == nil
   end
-=end  
+
   it "should be selective about delivering messages" do
     @bus.subscribe_type SampleMessage, lambda{ |msg|
       @dontHit = true
