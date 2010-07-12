@@ -4,6 +4,7 @@ require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |t|
 	t.spec_files = FileList['specs/*_spec.rb', 'specs/*.rspec']
 	t.spec_opts = ['--color --format nested']
+	t.rcov = true
 end
 
 task :default => :spec
