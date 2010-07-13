@@ -8,4 +8,11 @@ Spec::Rake::SpecTask.new(:spec) do |t|
 	t.rcov_opts = %w{--exclude gems\/,specs\/}
 end
 
+Spec::Rake::SpecTask.new(:ci_specs) do |t|
+  t.spec_files = FileList.new('specs/*.rspec') do |f|
+    f.exclude("specs\/rabbitmq")
+  end
+	t.spec_opts = ['--color --format nested']
+end
+
 task :default => :spec

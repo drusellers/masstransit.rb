@@ -1,4 +1,5 @@
 module MassTransit
+  # consumers are attached to buses and contain the consume action
 	class Consumer
 		def initialize(action)
 			@action = action
