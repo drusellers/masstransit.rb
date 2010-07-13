@@ -1,15 +1,15 @@
 module MassTransit
   class LoopbackEndpointFactory < EndpointFactory
 
-    def self.get_type()
+    def self.get_type
       return "Loopback"
     end
     
-    def get_type()
-      return self.get_type()
+    def get_type
+      return self.get_type
     end
   
-    def self.supports(scheme)
+    def self.supports?(scheme)
       return 'loopback'.casecmp(scheme) == 0
     end
 

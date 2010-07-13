@@ -9,19 +9,19 @@ describe "The endpoint factory" do
   end
 
   it "should handle loopback addresses" do
-    MassTransit::EndpointFactory.supports('loopback').should be true
+    MassTransit::EndpointFactory.supports?('loopback').should be true
   end
 
   it "should handle rabbitmq addresses" do
-    MassTransit::EndpointFactory.supports('rabbitmq').should be true
+    MassTransit::EndpointFactory.supports?('rabbitmq').should be true
   end
   
   it "should not handle the donkey addresses" do
-    MassTransit::EndpointFactory.supports('donkey').should be false
+    MassTransit::EndpointFactory.supports?('donkey').should be false
   end
   
   it "should ignore the case of the scheme" do
-    MassTransit::EndpointFactory.supports('RabbitMQ').should be true
+    MassTransit::EndpointFactory.supports?('RabbitMQ').should be true
   end
 
 end

@@ -2,21 +2,19 @@ module MassTransit
   class EndpointFactory
     @@factories = []
   
-    def get_type()
-      return ""
+    def get_type
+      ""
     end
 
-    def self.get_type()
-      return ""
+    def self.get_type
+      ""
     end
   
-    def self.supports(scheme)
-      @@factories.each { |factory|
-        if factory.supports(scheme)
-          return true
-        end
-      }
-      return false
+    def self.supports?(scheme)
+      @@factories.each do |factory|
+        return true if factory.supports? scheme
+      end
+      false
     end
   
     def self.inherited(ef)
@@ -35,16 +33,13 @@ module MassTransit
     end
 
     def self.getEndpoint( uri )
-      unless get_type() == ""
-        return nil
-      end
+      return nil unless get_type == ""
 
-      @@factories.each { |factory|
-        if factory.supports( uri.scheme )
-	  			return factory.getEndpoint uri 
-				end
-      }
-      return nil
+      @@factories.each do |factory|
+        return factory.getEndpoint(uri) if factory.supports?( uri.scheme )
+      end
+      
+      nil
     end
   end    
   
