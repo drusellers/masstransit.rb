@@ -1,0 +1,6 @@
+source "http://rubygems.org"
+
+gem "carrot"
+gem "json"
+gem "rcov"
+gem "rspec"

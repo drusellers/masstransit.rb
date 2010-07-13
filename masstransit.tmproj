@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>lib/masstransit/consumer.rb</string>
+	<string>rakefile</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,7 +26,9 @@
 			<key>filename</key>
 			<string>rakefile</string>
 			<key>lastUsed</key>
-			<date>2010-07-09T22:51:38Z</date>
+			<date>2010-07-13T01:02:58Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -155,6 +157,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>rakefile</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>40</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>specs/bus.rspec</key>
 		<dict>
 			<key>caret</key>
@@ -189,6 +205,7 @@
 		<string>specs/bus.rspec</string>
 		<string>lib/masstransit/bus.rb</string>
 		<string>lib/masstransit/consumer.rb</string>
+		<string>rakefile</string>
 		<string>lib/masstransit/endpoints/loopback_endpoint.rb</string>
 		<string>lib/masstransit/endpoints/loopback_endpoint_factory.rb</string>
 		<string>lib/masstransit/endpoints/rabbitmq_endpoint.rb</string>
@@ -199,6 +216,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{315, 182}, {960, 588}}</string>
+	<string>{{358, 224}, {960, 588}}</string>
 </dict>
 </plist>

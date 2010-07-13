@@ -30,7 +30,5 @@ deliver Sample::SampleClass.new
 
 
 
-
-
 name = Sample::SampleClass.name
 #puts name.gsub '::', '.'
