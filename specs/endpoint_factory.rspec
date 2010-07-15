@@ -35,23 +35,23 @@ describe "The endpoint factory's getEndpoint()" do
   end
 
   it "should return an endpoint when given a supported loopback URI" do
-    MassTransit::EndpointFactory.getEndpoint(@loopbackUri).should_not be nil
+    MassTransit::EndpointFactory.get_endpoint(@loopbackUri).should_not be nil
   end
 
   it "should return an endpoint when given a supported RabbitMQ URI" do
-    ep = MassTransit::EndpointFactory.getEndpoint(@rabbitmqUri)
+    ep = MassTransit::EndpointFactory.get_endpoint(@rabbitmqUri)
     ep.should_not be_nil
     (ep.kind_of? MassTransit::RabbitMqEndpoint).should be true
   end
 
   it "should return an instance of Endpoint when given a supported URI" do
-    ep = MassTransit::EndpointFactory.getEndpoint(@loopbackUri)
+    ep = MassTransit::EndpointFactory.get_endpoint(@loopbackUri)
     ep.should_not be_nil
     (ep.kind_of? MassTransit::Endpoint).should be true
   end
   
   it "should return a nil when given an unsupported URI" do
-    MassTransit::EndpointFactory.getEndpoint(@donkeyUri).should be nil
+    MassTransit::EndpointFactory.get_endpoint(@donkeyUri).should be nil
   end
   
 end

@@ -9,7 +9,7 @@ module MassTransit
       return 'rabbitmq'.casecmp(scheme) == 0
     end
 
-    def self.getEndpoint(uri)
+    def self.get_endpoint(uri)
       return RabbitMqEndpoint.new uri
     end
 

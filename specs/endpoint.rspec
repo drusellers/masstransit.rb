@@ -6,7 +6,7 @@ describe "The endpoint" do
 
   before(:each) do
     @uri = URI.parse('loopback://something/')
-    @endpoint = MassTransit::EndpointFactory.getEndpoint(@uri)
+    @endpoint = MassTransit::EndpointFactory.get_endpoint(@uri)
   end
 
   it "should accept a message when send is called" do

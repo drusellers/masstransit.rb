@@ -32,11 +32,11 @@ module MassTransit
       }
     end
 
-    def self.getEndpoint( uri )
+    def self.get_endpoint( uri )
       return nil unless get_type == ""
 
       @@factories.each do |factory|
-        return factory.getEndpoint(uri) if factory.supports?( uri.scheme )
+        return factory.get_endpoint(uri) if factory.supports?( uri.scheme )
       end
       
       nil

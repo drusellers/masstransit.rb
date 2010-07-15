@@ -13,7 +13,7 @@ module MassTransit
       return 'loopback'.casecmp(scheme) == 0
     end
 
-    def self.getEndpoint(uri)
+    def self.get_endpoint(uri)
       LoopbackEndpoint.new uri
     end
   end

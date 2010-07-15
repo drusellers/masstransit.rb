@@ -7,7 +7,7 @@ describe "RabbitMqEndpoint.send" do
 
   before(:each) do
     @uri = URI.parse('rabbitmq://localhost/rme.spec')
-    @endpoint = MassTransit::EndpointFactory.getEndpoint(@uri)
+    @endpoint = MassTransit::EndpointFactory.get_endpoint(@uri)
     @endpoint.should_not be_nil
     @endpoint.queue.purge
     @endpoint.queue.message_count.should be 0
