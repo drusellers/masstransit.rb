@@ -1,0 +1,13 @@
+require 'spec'
+require 'lib/masstransit'
+
+describe "The urn" do
+
+  before(:each) do
+    @name = 'urn:masstransit:message:loan'
+  end
+
+  it "should ??" do
+  end
+
+end

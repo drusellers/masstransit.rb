@@ -10,7 +10,7 @@ module MassTransit
   end
   
   module Bus
-    #find a way to store these
+
     def consume(message_name, &block)
       @consumers = {} if @consumers.nil?
       consumers = @consumers[message_name]
@@ -19,7 +19,15 @@ module MassTransit
       @consumers[message_name] = consumers
     end
     
+    def publish(msg)
+      env = Envelope.new 'messagename', msg
+      endpoint.send(env)
+    end
+    
+    #for local distribution
     def deliver(env)
+      #read the YAML with the address of the server
+      
       @consumers[env.message_name].each do |c|
         c.call env.body
       end
