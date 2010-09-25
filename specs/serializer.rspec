@@ -1,0 +1,36 @@
+require 'spec'
+require 'lib/masstransit'
+
+class Person
+    attr_accessor :name
+end
+class Company
+    attr_accessor :name
+    attr_accessor :boss
+end
+describe "serializer" do
+    it "should serialize random objects" do
+        bob = Person.new
+        bob.name = 'bob'
+        s = MassTransit::Serializer.new
+        output = s.serialize(bob)
+        output.should eql "{\"name\":\"bob\",\"json_class\":\"Person\"}"
+    end
+    
+    it "should serialize nested objects" do
+        company = Company.new
+        company.name = 'Acme'
+        company.boss = Person.new
+        company.boss.name = 'bob'
+        s = MassTransit::Serializer.new
+        output = s.serialize(company)
+        output.should eql "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\",\"json_class\":\"Person\"},\"json_class\":\"Company\"}"
+    end
+    
+    it "should deserialize shiz too" do
+        s = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\"}}"
+        o = JSON.parse(s)
+        #WTF I thought dicts had missing method
+        o['name'].should eql "Acme"
+    end
+end

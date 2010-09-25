@@ -1,0 +1,13 @@
+require 'spec'
+require 'lib/masstransit'
+
+describe 'config should do its stuff' do
+
+    it 'read in files' do
+       cfg = MassTransit.load_config('./specs/config.yaml')
+       cfg.server.should eql "local"
+       cfg.port.should eql 567
+    end
+
+
+end

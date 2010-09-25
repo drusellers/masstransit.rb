@@ -1,0 +1,7 @@
+---
+server : local
+port : 567
+user : dru
+password : 1234
+vdir : /bus
+insist : false
