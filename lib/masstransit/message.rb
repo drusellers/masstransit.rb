@@ -1,12 +1,16 @@
 module MassTransit
-  #a simple class to wrap the message and name
-  class Envelope
-    attr_accessor :message_name
-    attr_accessor :body
-      
-    def initialize(message_name, body)
-      @message_name = message_name
-      @body = body
+  
+  class Message
+    
+    def initialize(hash)
+      @hash = hash
     end
+    
+    def method_missing(name, *args)
+      return @hash[name] if @hash.key? name
+      super
+    end
+    
   end
+
 end

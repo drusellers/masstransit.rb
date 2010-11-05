@@ -8,6 +8,7 @@ class Company
     attr_accessor :name
     attr_accessor :boss
 end
+
 describe "serializer" do
     it "should serialize random objects" do
         bob = Person.new
@@ -25,6 +26,20 @@ describe "serializer" do
         s = MassTransit::Serializer.new
         output = s.serialize(company)
         output.should eql "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\",\"json_class\":\"Person\"},\"json_class\":\"Company\"}"
+    end
+    
+    it "should go to UntypedMessage" do
+        input = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\"}}"
+        s = MassTransit::Serializer.new
+        output = s.deserialize(input)
+        output.class.should eql MassTransit::UntypedMessage
+    end
+    
+    it "should go to class" do
+        input = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\",\"json_class\":\"Person\"},\"json_class\":\"Company\"}"
+        s = MassTransit::Serializer.new
+        output = s.deserialize(input)
+        output.class.should eql Company
     end
     
     it "should deserialize shiz too" do

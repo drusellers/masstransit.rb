@@ -11,7 +11,11 @@ module MassTransit
     end
     
     def deserialize(data)
-      return JSON.parse(data)
+      result = JSON.parse(data)
+      
+      result = MassTransit::UntypedMessage.new(result) if result.class == Hash
+      
+      result
     end
   end  
 

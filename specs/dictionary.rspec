@@ -1,0 +1,23 @@
+require 'spec'
+
+describe "default ruby dicts don't use method missing" do
+    #test for error
+    it "should throw a NoMethodError" do
+        sampleDict = {:name=>"dru"}
+        expect {sampleDict.name }.should raise_error(NoMethodError)
+    end
+end
+
+describe "we must modify dicts with the desired behavior" do
+    it "should use method missing" do
+        #use magic
+        class Hash
+            def method_missing(name, *args)
+                send :[], name
+            end
+        end
+        
+        sampleDict = {:name=>"dru"}
+        sampleDict.name.should eql "dru"
+    end
+end
