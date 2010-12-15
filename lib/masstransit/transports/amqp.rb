@@ -1,4 +1,4 @@
-require 'carrot'
+require 'bunny'
 
 module MassTransit
   #The wrapper class on top of AMQP, that provides the standard
@@ -7,14 +7,16 @@ module MassTransit
     
     #opens a connection to the Amqp server
     def open(config)
-      @client = Carrot.new(
-        :host   => config.server,
+      @client = Bunny.new(
+        :logging=>true,
+        :host => config.server,
         :port   => config.port,
         :user   => config.user,
         :pass   => config.password,
         :vhost  => config.vdir,
         :insist => config.insist
       )
+      @client.start
     end
     
     #closes the connection to the Amqp server
@@ -33,9 +35,9 @@ module MassTransit
     
     #binds the queue to the exchange
     def bind(queue, exchange)
-      @client.topic(exchange, :durable=>true)
+      ex = @client.exchange(exchange, :type=>:fanout, :durable=>true)
       q = @client.queue(queue)
-      q.bind(exchange)
+      q.bind(ex)
     end
     
     #unbnids the queue from the exchange
@@ -61,7 +63,8 @@ module MassTransit
     end
     
     def publish(exchange, data)
-      #@client.exchanges[exchange].publish(data)
+      ex = @client.exchange(exchange, :type=>:fanout, :durable=>true)
+      ex.publish(data)
     end
   end
 end

@@ -16,4 +16,6 @@ Gem::Specification.new do |s|
   #s.bindir             = 'bin'
   #s.executables        = ['mt']
   #s.default_executable = 'mt'
+  
+  s.add_dependency('bunny')
 end
