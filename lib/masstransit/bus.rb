@@ -22,7 +22,7 @@ module MassTransit
         envelope = Envelope.new(msg_name, message)
         data = @serializer.serialize(envelope)
         
-        @transport.basic_publish(msg_name, data) #exchange?
+        @transport.publish(msg_name, data) #exchange?
       end
       
       #this will register an exchange in rabbit for the 'message_name'

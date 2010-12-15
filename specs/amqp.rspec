@@ -32,7 +32,7 @@ describe 'amqp-carrot integration' do
         connection = MassTransit::Amqp.new
         cfg = MassTransit::Config.new
         connection.open(cfg)
-        connection.queue_bind('dataruby', 'unittest')
+        connection.bind('dataruby', 'unittest')
     end
     
     it 'should publish message' do
@@ -50,9 +50,9 @@ describe 'amqp-carrot integration' do
         connection.open(cfg)
         data = MyMessage.new
         env = connection.create_message(data)
-        connection.queue_bind('dataruby', 'exchange')
+        connection.bind('dataruby', 'exchange')
         
-        connection.basic_publish('exchange', env)
+        connection.publish('exchange', env)
         
     end
 

@@ -5,3 +5,4 @@ user : guest
 password : guest
 vdir : /
 insist : true
+queue : ruby

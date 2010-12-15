@@ -10,4 +10,7 @@ end
 
 conf = MassTransit.load_config('./sample.yaml')
 bus = MassTransit::Bus.new(conf)
-bus.publish(MyMessage.new)
+
+(0...20000).each do
+  bus.publish(MyMessage.new)
+end

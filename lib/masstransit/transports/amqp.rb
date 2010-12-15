@@ -27,21 +27,19 @@ module MassTransit
       @client.queue(name)
     end
     
-    #declares an exchange on the server
-    def exchange_declare(name)
-      #durable
-      #auto_delete
-      @client.topic(name, :durable=>true)
+    def queue_delete(name)
+      #how to?
     end
     
     #binds the queue to the exchange
-    def queue_bind(queue, exchange)
+    def bind(queue, exchange)
+      @client.topic(exchange, :durable=>true)
       q = @client.queue(queue)
       q.bind(exchange)
     end
     
     #unbnids the queue from the exchange
-    def unbind(exchange, queue)
+    def unbind(queue, exchange)
     end
     
     #creates a transport ready message object
@@ -53,13 +51,16 @@ module MassTransit
       return msg
     end
     
+    def monitor(queue, callback)
+      #basic consume / pop loop here
+    end
+    
     #pushes the message onto the exchange
     def send(queue, data)
       @client.queue(queue).publish(data)
     end
     
-    def basic_publish(exchange, data)
-      exchange_declare(exchange)
+    def publish(exchange, data)
       #@client.exchanges[exchange].publish(data)
     end
   end
