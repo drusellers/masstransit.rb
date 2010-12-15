@@ -32,7 +32,7 @@ describe "serializer" do
         input = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\"}}"
         s = MassTransit::Serializer.new
         output = s.deserialize(input)
-        output.class.should eql MassTransit::UntypedMessage
+        output.class.should eql MassTransit::Message
     end
     
     it "should go to class" do

@@ -1,0 +1,59 @@
+require 'spec'
+require 'lib/masstransit'
+
+class MyMessage
+    attr_accessor :name
+    
+    def initialize()
+        @name = 'dru'
+    end
+    
+end
+
+describe 'amqp-carrot integration' do
+    it 'should new up' do
+        bob = MassTransit::Amqp.new
+    end
+    
+    
+    it 'should connect' do
+        connection = MassTransit::Amqp.new
+        cfg = MassTransit::Config.new
+        connection.open(cfg)
+    end
+    
+    it 'should create message' do
+        connection = MassTransit::Amqp.new
+        data = MyMessage.new
+        msg = connection.create_message(data)
+    end
+    
+    it 'should bind a queue' do
+        connection = MassTransit::Amqp.new
+        cfg = MassTransit::Config.new
+        connection.open(cfg)
+        connection.queue_bind('dataruby', 'unittest')
+    end
+    
+    it 'should publish message' do
+        connection = MassTransit::Amqp.new
+        cfg = MassTransit::Config.new
+        connection.open(cfg)
+        data = MyMessage.new
+        env = connection.create_message(data)
+        connection.send('dataruby', env)
+    end
+    
+    it 'should use exchanges' do
+        connection = MassTransit::Amqp.new
+        cfg = MassTransit::Config.new
+        connection.open(cfg)
+        data = MyMessage.new
+        env = connection.create_message(data)
+        connection.queue_bind('dataruby', 'exchange')
+        
+        connection.basic_publish('exchange', env)
+        
+    end
+
+end

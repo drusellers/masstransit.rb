@@ -14,8 +14,9 @@ module MassTransit
     attr_accessor :insist
     attr_accessor :transport
     attr_accessor :serializer
+    attr_accessor :queue
     
-    def new()
+    def initialize()
       @server = 'localhost'
       @port = 5672
       @vdir = '/'
@@ -24,6 +25,7 @@ module MassTransit
       @insist = true
       @transport = Amqp.new()
       @serializer = Serializer.new
+      @queue = 'default_queue'
     end
   end
   
@@ -45,6 +47,7 @@ module MassTransit
     cfg.user = o['user']
     cfg.password = o['password']
     cfg.insist = o['insist']
+    cfg.queue = o['queue']
     
     return cfg
   end

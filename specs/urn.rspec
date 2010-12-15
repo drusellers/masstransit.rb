@@ -1,0 +1,20 @@
+require 'spec'
+require 'lib/masstransit'
+
+module Test
+  class Msg
+  end
+end
+
+describe 'Urn' do
+
+  it 'should handle types' do
+    urn = MassTransit::Urn.new(Test::Msg)
+    urn.kind.should eql 'Test:Msg'
+  end
+  
+  it 'should handle strings' do
+    urn = MassTransit::Urn.new('Test.Msg')
+    urn.kind.should eql 'Test:Msg'
+  end
+end

@@ -1,5 +1,7 @@
 module MassTransit
   
+  #creates a method missing style dictionary for when
+  #i don't have the actual type availible
   class Message
     
     def initialize(hash)

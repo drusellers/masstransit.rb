@@ -1,0 +1,7 @@
+---
+server : localhost
+port : 567
+user : guest
+password : guest
+vdir : /
+insist : true

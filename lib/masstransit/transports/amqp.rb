@@ -12,7 +12,7 @@ module MassTransit
         :port   => config.port,
         :user   => config.user,
         :pass   => config.password,
-        :vhost  => config.vhost,
+        :vhost  => config.vdir,
         :insist => config.insist
       )
     end
@@ -31,27 +31,36 @@ module MassTransit
     def exchange_declare(name)
       #durable
       #auto_delete
-      @client.direct(name, :durable=>true)
+      @client.topic(name, :durable=>true)
     end
     
-    #binds the queue to the excange
+    #binds the queue to the exchange
     def queue_bind(queue, exchange)
       q = @client.queue(queue)
       q.bind(exchange)
+    end
+    
+    #unbnids the queue from the exchange
+    def unbind(exchange, queue)
     end
     
     #creates a transport ready message object
     def create_message(data)
       msg_name = data.class.name
       msg = data
-      msg = Message.new(msg_name, msg)
+      msg = Envelope.new(msg_name, msg)
       
       return msg
     end
     
     #pushes the message onto the exchange
-    def basic_publish(data, options)
-      ex = options[:exchange]
+    def send(queue, data)
+      @client.queue(queue).publish(data)
+    end
+    
+    def basic_publish(exchange, data)
+      exchange_declare(exchange)
+      #@client.exchanges[exchange].publish(data)
     end
   end
 end
