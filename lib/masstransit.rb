@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'json' unless defined?(JSON)
+require 'active_support' unless defined?(ActiveSupport)
 
 here = File.expand_path(File.dirname(__FILE__))
 

@@ -15,7 +15,7 @@ describe "serializer" do
         bob.name = 'bob'
         s = MassTransit::Serializer.new
         output = s.serialize(bob)
-        output.should eql "{\"name\":\"bob\",\"json_class\":\"Person\"}"
+        output.should eql "{\"name\":\"bob\"}"
     end
     
     it "should serialize nested objects" do
@@ -25,7 +25,7 @@ describe "serializer" do
         company.boss.name = 'bob'
         s = MassTransit::Serializer.new
         output = s.serialize(company)
-        output.should eql "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\",\"json_class\":\"Person\"},\"json_class\":\"Company\"}"
+        output.should eql "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\"}}"
     end
     
     it "should go to UntypedMessage" do
@@ -35,26 +35,17 @@ describe "serializer" do
         output.class.should eql MassTransit::Message
     end
     
-    it "should go to class" do
-        input = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\",\"json_class\":\"Person\"},\"json_class\":\"Company\"}"
-        s = MassTransit::Serializer.new
-        output = s.deserialize(input)
-        output.class.should eql Company
-    end
-    
-
-
 	it 'should handle envelopes' do
 		p = Person.new
 		p.name = 'ruby'
-		s = MassTransit::Serializer.new
 		
 		env = MassTransit::Envelope.new
 		env.message_name = 'Person'
 		env.body = p
-
+		
+		s = MassTransit::Serializer.new
 		data = s.serialize env
-		data.should eql "{\"body\":{\"name\":\"ruby\",\"json_class\":\"Person\"},\"json_class\":\"MassTransit::Envelope\",\"message_name\":\"Person\"}"
+		data.should eql "{\"body\":{\"name\":\"ruby\"},\"message_name\":\"Person\"}"
 		
 		vne = s.deserialize data
 

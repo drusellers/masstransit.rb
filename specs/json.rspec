@@ -11,25 +11,25 @@ describe 'json library' do
     t.name = 't'
     
     js = t.to_json
-    js.should eql "{\"name\":\"t\",\"json_class\":\"Team\"}"
+    js.should eql "{\"name\":\"t\"}"
   end
   
   it "should repopulate members" do
-    s = "{\"name\":\"t\",\"json_class\":\"Team\"}"
-    o = JSON.parse!(s)
-    o.name.should eql "t"
+    s = "{\"name\":\"t\"}"
+    o = ActiveSupport::JSON.decode(s)
+    o['name'].should eql "t"
     #why isn't my property method hydrated?
   end
   
-  it "dump" do
+  it "dump handle empty" do
     t = Team.new
-    o = JSON.dump(t)
-    o.should eql ""
+    o = ActiveSupport::JSON.encode(t)
+    o.should eql "{}"
   end
   
   it "should deserialize shiz too" do
       s = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\"}}"
-      o = JSON.parse(s)
+      o = ActiveSupport::JSON.decode(s)
       #WTF I thought dicts had missing method
       o['name'].should eql "Acme"
   end
