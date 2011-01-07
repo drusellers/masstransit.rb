@@ -1,0 +1,19 @@
+require 'spec'
+
+describe "message class" do
+    #test for error
+    it "should wrap a dict" do
+        sampleDict = {:name=>"dru"}
+        msg = MassTransit::Message.new sampleDict
+        
+        msg.name.should eql 'dru'
+    end
+    
+    it "should wrap nested dicts" do
+      sampleDict = {:name=>"dru", :keys=>{:one=>'bill',:two=>2}}
+      msg = MassTransit::Message.new sampleDict
+      
+      msg.name.should eql 'dru'
+      msg.keys.one.should eql 'bill'
+    end
+end

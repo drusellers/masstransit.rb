@@ -13,18 +13,6 @@ module MassTransit
         @transport.open(conf)
       end
       
-      
-      #this will publish the message object to an exchange in rabbitmq
-      #that is equal to the message class name. this is a direct concept
-      #from .net and should be adopted into a more ruby manner
-      def publish(message)
-        msg_name = message.class.name
-        envelope = Envelope.new(msg_name, message)
-        data = @serializer.serialize(envelope)
-        
-        @transport.publish(msg_name, data) #exchange?
-      end
-      
       #this will register an exchange in rabbit for the 'message_name'
       #and then bind the queue to that exchange. it then sets
       # the subscriptions[message_name] to the callback provided
@@ -34,6 +22,7 @@ module MassTransit
         consumers = [] if consumers.nil?
         consumers << block
         @subscriptions[message_name] = consumers
+        @transport.bind message_name
       end
       
       #this will unregister the queue with the exchange in rabbitmq
@@ -52,17 +41,41 @@ module MassTransit
       #better ctrl-c support
       def start()
         #start listening
+        @transport.monitor do |rmsg|
+          consume(rmsg)
+        end
       end
       
       def close()
         
       end
       
+      #this will publish the message object to an exchange in rabbitmq
+      #that is equal to the message class name. this is a direct concept
+      #from .net and should be adopted into a more ruby manner
+      def publish(message)
+        envelope = @transport.create_message(message)
+        data = @serializer.serialize(envelope)
+        
+        @transport.publish(envelope.message_name, data) #exchange?
+      end
+      
+      #takes a rabbitmq message, strips off the noise and gets back to an 
+      #envelope
+      def consume(rmsg)
+        data = @transport.get_message(rmsg)
+        #payload is a string
+        env = @serializer.deserialize data
+        puts 'oeuaoeusatoehuntsaoheuntsahoeusnth'
+        puts env
+        deliver(env)
+      end
+      
       #for local distribution
       def deliver(env)
-        #read the YAML with the address of the server
-        
-        @subscriptions[env.message_name].each do |c|
+        consumers = @subscriptions[env.message_name]
+        consumers = [] if consumers.nil?
+        consumers.each do |c|
           c.call env.body
         end
       end

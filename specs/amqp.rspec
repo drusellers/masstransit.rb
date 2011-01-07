@@ -10,7 +10,7 @@ class MyMessage
     
 end
 
-describe 'amqp-carrot integration' do
+describe 'amqp-bunny integration' do
     it 'should new up' do
         bob = MassTransit::Amqp.new
     end
@@ -32,7 +32,7 @@ describe 'amqp-carrot integration' do
         connection = MassTransit::Amqp.new
         cfg = MassTransit::Config.new
         connection.open(cfg)
-        connection.bind('dataruby', 'unittest')
+        connection.bind('unittest')
     end
     
     it 'should publish message' do
@@ -50,10 +50,11 @@ describe 'amqp-carrot integration' do
         connection.open(cfg)
         data = MyMessage.new
         env = connection.create_message(data)
-        connection.bind('dataruby', 'exchange')
+        connection.bind('exchange')
         
         connection.publish('exchange', env)
         
     end
 
+	it 'should pull msgs out'
 end

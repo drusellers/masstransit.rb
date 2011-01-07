@@ -8,9 +8,12 @@ class MyMessage
   end
 end
 
-conf = MassTransit.load_config('./sample.yaml')
+conf = MassTransit.load_config('./sample_subscriber.yaml')
 bus = MassTransit::Bus.new(conf)
 
-(0...20000).each do
-  bus.publish(MyMessage.new)
+#subscribe stuff
+bus.subscribe('MyMessage') do |msg|
+  puts msg.name
 end
+
+bus.start()

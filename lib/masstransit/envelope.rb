@@ -4,9 +4,12 @@ module MassTransit
     attr_accessor :message_name
     attr_accessor :body
       
-    def initialize(message_name, body)
-      @message_name = message_name
-      @body = body
+    def initialize()
     end
+    
+#    def initialize(message_name, body)
+#      @message_name = message_name
+#      @body = body
+#    end
   end
 end

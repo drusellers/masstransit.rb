@@ -1,0 +1,28 @@
+require 'spec'
+require 'lib/masstransit'
+
+class Bob
+	attr_accessor :name
+	
+	def initialize()
+		@name = 'b'
+	end
+	
+end
+
+describe 'bus' do
+
+	it 'should deliver in memory' do
+		conf = MassTransit::Config.new
+		bus = MassTransit::Bus.new(conf)
+
+		bus.subscribe('Bob') do |msg|
+			msg.name.should eql 'a'
+		end
+		
+		bus.publish Bob.new
+		
+	end
+	
+
+end

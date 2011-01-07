@@ -16,6 +16,7 @@ module MassTransit
         :vhost  => config.vdir,
         :insist => config.insist
       )
+      @queue = config.queue
       @client.start
     end
     
@@ -34,9 +35,9 @@ module MassTransit
     end
     
     #binds the queue to the exchange
-    def bind(queue, exchange)
+    def bind(exchange)
       ex = @client.exchange(exchange, :type=>:fanout, :durable=>true)
-      q = @client.queue(queue)
+      q = @client.queue(@queue)
       q.bind(ex)
     end
     
@@ -48,13 +49,25 @@ module MassTransit
     def create_message(data)
       msg_name = data.class.name
       msg = data
-      msg = Envelope.new(msg_name, msg)
       
-      return msg
+      env = Envelope.new
+      env.message_name = msg_name
+      env.body = msg
+      
+      return env
     end
     
-    def monitor(queue, callback)
+    def get_message(rmsg)
+      return rmsg[:payload]
+    end
+    
+    def monitor(&block)
       #basic consume / pop loop here
+      q = @client.queue(@queue)
+      q.subscribe(:consumer_tag => 'testtag1', :timeout => 30) do |msg|
+        block.call msg
+      end
+
     end
     
     #pushes the message onto the exchange

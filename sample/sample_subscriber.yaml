@@ -1,8 +1,8 @@
 ---
 server : localhost
-port : 567
+port : 5672
 user : guest
 password : guest
 vdir : /
 insist : true
-queue : ruby
+queue : ruby_sub

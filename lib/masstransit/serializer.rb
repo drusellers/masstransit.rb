@@ -6,10 +6,12 @@ require 'json/add/rails'
 module MassTransit
 
   class Serializer
-    def serialize(obj)
-      return obj.to_json
+    def serialize(env)
+      #enforce that env is an Envelope
+      return env.to_json
     end
     
+    #returns an Envelope
     def deserialize(data)
       result = JSON.parse(data)
       

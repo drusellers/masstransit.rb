@@ -42,10 +42,23 @@ describe "serializer" do
         output.class.should eql Company
     end
     
-    it "should deserialize shiz too" do
-        s = "{\"name\":\"Acme\",\"boss\":{\"name\":\"bob\"}}"
-        o = JSON.parse(s)
-        #WTF I thought dicts had missing method
-        o['name'].should eql "Acme"
-    end
+
+
+	it 'should handle envelopes' do
+		p = Person.new
+		p.name = 'ruby'
+		s = MassTransit::Serializer.new
+		
+		env = MassTransit::Envelope.new
+		env.message_name = 'Person'
+		env.body = p
+
+		data = s.serialize env
+		data.should eql "{\"body\":{\"name\":\"ruby\",\"json_class\":\"Person\"},\"json_class\":\"MassTransit::Envelope\",\"message_name\":\"Person\"}"
+		
+		vne = s.deserialize data
+
+		vne.message_name.should eql 'Person'
+
+	end
 end
