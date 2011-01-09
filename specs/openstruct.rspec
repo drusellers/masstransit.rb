@@ -1,0 +1,17 @@
+require 'spec'
+require 'ostruct'
+
+describe "serializer" do
+  before(:each) do
+    @dict = {'name'=>'bob', 'nest'=>{"type"=>'bird'}}
+    @o = OpenStruct.new @dict
+  end
+  
+  it 'should work one layer' do
+    @o.name.should eql 'bob'
+  end
+  
+  it 'should return dict in nest' do
+    @o.nest.class.should eql Hash
+  end
+end

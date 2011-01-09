@@ -52,4 +52,6 @@ describe "serializer" do
 		vne.message_name.should eql 'Person'
 
 	end
+	
+	
 end

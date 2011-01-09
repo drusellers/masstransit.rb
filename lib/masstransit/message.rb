@@ -13,8 +13,11 @@ module MassTransit
     end
     
     def method_missing(name, *args)
-      value = o.send name, args 
-      return value if value.nil? == false
+      value = @o.send name, args 
+      if value.class == Hash
+        value = Message.new value
+      end
+      return value unless value.nil?
       super
     end
     

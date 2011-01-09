@@ -4,7 +4,7 @@ class MyMessage
   attr_accessor :name
   
   def initialize()
-    @name = 'dru'
+    @name = 'sample publish'
   end
 end
 
