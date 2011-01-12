@@ -1,8 +1,8 @@
 module MassTransit
   #a simple class to wrap the message and name
   class Envelope
-    attr_accessor :message_name
-    attr_accessor :body
+    attr_accessor :MessageType
+    attr_accessor :Message
       
     def initialize()
     end

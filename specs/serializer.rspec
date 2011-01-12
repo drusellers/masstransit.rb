@@ -40,16 +40,16 @@ describe "serializer" do
 		p.name = 'ruby'
 		
 		env = MassTransit::Envelope.new
-		env.message_name = 'Person'
-		env.body = p
+		env.MessageType = 'Person'
+		env.Message = p
 		
 		s = MassTransit::Serializer.new
 		data = s.serialize env
-		data.should eql "{\"body\":{\"name\":\"ruby\"},\"message_name\":\"Person\"}"
+		data.should eql "{\"Message\":{\"name\":\"ruby\"},\"MessageType\":\"Person\"}"
 		
 		vne = s.deserialize data
 
-		vne.message_name.should eql 'Person'
+		vne.MessageType.should eql 'Person'
 
 	end
 	

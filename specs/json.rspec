@@ -1,5 +1,6 @@
 require 'spec'
 require 'lib/masstransit'
+require 'active_support'
 
 class Team
     attr_accessor :name
@@ -10,7 +11,7 @@ describe 'json library' do
     t = Team.new
     t.name = 't'
     
-    js = t.to_json
+    js = ActiveSupport::JSON.encode(t)
     js.should eql "{\"name\":\"t\"}"
   end
   

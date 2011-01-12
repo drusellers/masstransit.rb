@@ -54,10 +54,10 @@ module MassTransit
       #that is equal to the message class name. this is a direct concept
       #from .net and should be adopted into a more ruby manner
       def publish(message)
-        envelope = @transport.create_message(message)
+        envelope = @transport.create_message(message, @serializer)
         data = @serializer.serialize(envelope)
         
-        @transport.publish(envelope.message_name, data) #exchange?
+        @transport.publish(envelope.MessageType, data) #exchange?
       end
       
       #takes a rabbitmq message, strips off the noise and gets back to an 
@@ -73,10 +73,11 @@ module MassTransit
       
       #for local distribution
       def deliver(env)
-        consumers = @subscriptions[env.message_name]
+        consumers = @subscriptions[env.MessageType]
         consumers = [] if consumers.nil?
         consumers.each do |c|
-          c.call env.body
+          obj = @serializer.deserialize(env.Message)
+          c.call obj
         end
       end
   end

@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
-gem "carrot"
+gem "bunny"
+gem "guid"
 gem "json"
 gem "rcov"
 gem "rspec"

@@ -1,4 +1,5 @@
 require 'bunny'
+require 'guid'
 
 module MassTransit
   #The wrapper class on top of AMQP, that provides the standard
@@ -46,13 +47,14 @@ module MassTransit
     end
     
     #creates a transport ready message object
-    def create_message(data)
-      msg_name = data.class.name
+    def create_message(data, serializer)
+      msg_name = data.class.name.gsub("::",".")
       msg = data
       
       env = Envelope.new
-      env.message_name = msg_name
-      env.body = msg
+      env.MessageType = msg_name
+      #this needs to be a string for .net
+      env.Message = serializer.serialize(msg)
       
       return env
     end
@@ -76,7 +78,8 @@ module MassTransit
     end
     
     def publish(exchange, data)
-      ex = @client.exchange(exchange, :type=>:fanout, :durable=>true)
+      id = Guid.new.to_s
+      ex = @client.exchange(exchange, :type=>:fanout, :durable=>true, :message_id=>id)
       ex.publish(data)
     end
   end

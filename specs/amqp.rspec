@@ -25,7 +25,8 @@ describe 'amqp-bunny integration' do
     it 'should create message' do
         connection = MassTransit::Amqp.new
         data = MyMessage.new
-        msg = connection.create_message(data)
+        ser = MassTransit::Serializer.new
+        msg = connection.create_message(data, ser)
     end
     
     it 'should bind a queue' do
@@ -40,7 +41,8 @@ describe 'amqp-bunny integration' do
         cfg = MassTransit::Config.new
         connection.open(cfg)
         data = MyMessage.new
-        env = connection.create_message(data)
+        ser = MassTransit::Serializer.new
+        env = connection.create_message(data, ser)
         connection.send('dataruby', env)
     end
     
@@ -49,7 +51,8 @@ describe 'amqp-bunny integration' do
         cfg = MassTransit::Config.new
         connection.open(cfg)
         data = MyMessage.new
-        env = connection.create_message(data)
+        ser = MassTransit::Serializer.new
+        env = connection.create_message(data, ser)
         connection.bind('exchange')
         
         connection.publish('exchange', env)
