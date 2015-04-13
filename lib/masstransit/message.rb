@@ -3,7 +3,7 @@ require 'ostruct'
 module MassTransit
   
   #creates a method missing style dictionary for when
-  #i don't have the actual type availible
+  #I don't have the actual type available
   class Message
     attr_accessor :hash
     
