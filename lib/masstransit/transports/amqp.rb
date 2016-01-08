@@ -19,6 +19,7 @@ module MassTransit
       )
       @queue = config.queue
       @client.start
+      @consumerTag=''
     end
     
     #closes the connection to the Amqp server
@@ -37,8 +38,10 @@ module MassTransit
     
     #binds the queue to the exchange
     def bind(exchange)
-      ex = @client.exchange(exchange, :type=>:fanout, :durable=>true)
-      q = @client.queue(@queue)
+      #ex = @client.exchange(exchange, :type=>:fanout, :durable=>true)
+      @chan=@client.channel
+      ex = Bunny::Exchange.new(@chan, 'fanout', exchange,  :durable=>true)
+      q = @chan.queue(@queue)
       q.bind(ex)
     end
     
@@ -48,13 +51,13 @@ module MassTransit
     
     #creates a transport ready message object
     def create_message(data, serializer)
-      msg_name = data.class.name.gsub("::",".")
+      msg_name = "urn:message:" + data.messageType || data.class.name.gsub("::",".")
       msg = data
       
       env = Envelope.new
-      env.MessageType = msg_name
+      env.messageType = msg_name
       #this needs to be a string for .net
-      env.Message = serializer.serialize(msg)
+      env.message = serializer.serialize(msg)
       
       return env
     end
@@ -65,22 +68,24 @@ module MassTransit
     
     def monitor(&block)
       #basic consume / pop loop here
-      q = @client.queue(@queue)
-      q.subscribe(:consumer_tag => 'testtag1', :timeout => 30) do |msg|
-        block.call msg
+      q = @chan.queue(@queue)
+      q.subscribe(:consumer_tag => @consumerTag, :timeout => 30) do |delivery_info, properties, payload|
+        block.call delivery_info, properties, payload
       end
 
     end
     
     #pushes the message onto the exchange
     def send(queue, data)
-      @client.queue(queue).publish(data)
+      @chan.queue(queue).publish(data)
     end
     
-    def publish(exchange, data)
+    def publish(exchange, data, opts= {})
       id = Guid.new.to_s
-      ex = @client.exchange(exchange, :type=>:fanout, :durable=>true, :message_id=>id)
-      ex.publish(data)
+      #ex = @client.exchange(exchange, :type=>:fanout, :durable=>true, :message_id=>id)
+      @chan=@client.channel
+      ex = Bunny::Exchange.new(@chan, 'fanout', exchange,  :durable=>true, :message_id=>id)
+      ex.publish(data,opts)
     end
   end
 end

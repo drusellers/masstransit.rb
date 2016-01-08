@@ -41,8 +41,8 @@ module MassTransit
       #better ctrl-c support
       def start()
         #start listening
-        @transport.monitor do |rmsg|
-          consume(rmsg)
+        @transport.monitor do |rmsg,header,payload|
+          consume(rmsg,header,payload)
         end
       end
       
@@ -56,16 +56,18 @@ module MassTransit
       def publish(message)
         envelope = @transport.create_message(message, @serializer)
         data = @serializer.serialize(envelope)
-        
-        @transport.publish(envelope.MessageType, data) #exchange?
+        #queue = type, but messageType needs env.messageType = "urn:message:" + env.messageType
+        q_name = (message.messageType || data.class.name.gsub("::","."))
+        @transport.publish(q_name,data,:headers=> {"Content-Type"=>"application/vnd.masstransit+json"}) #exchange?
+        #@transport.publish(q_name,data) #exchange?
       end
       
       #takes a rabbitmq message, strips off the noise and gets back to an 
       #envelope
-      def consume(rmsg)
-        data = @transport.get_message(rmsg)
+      def consume(delivery_info, properties, payload)
+        #data = @transport.get_message(rmsg)
         #payload is a string
-        env = @serializer.deserialize data
+        env = @serializer.deserialize payload
         puts 'oeuaoeusatoehuntsaoheuntsahoeusnth'
         puts env
         deliver(env)
@@ -73,11 +75,15 @@ module MassTransit
       
       #for local distribution
       def deliver(env)
-        consumers = @subscriptions[env.MessageType]
+        #mtUrn=env.hash['messageType']
+        mt=env.hash['messageType'][0].split(':')[2..3].join(':') # TODO Hack. Can we assume urn:MessageType?
+        consumers = @subscriptions[mt]
+
         consumers = [] if consumers.nil?
         consumers.each do |c|
-          obj = @serializer.deserialize(env.Message)
-          c.call obj
+          #Already deserialized...
+          # obj = @serializer.deserialize(env.hash['message'])
+          c.call env.hash['message']
         end
       end
   end
